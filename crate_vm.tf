@@ -50,7 +50,6 @@ resource "yandex_compute_instance" "build" {
  metadata = {
   foo = "bar"
   serial-port-enable = true
-  //user-data = "${file("./meta.txt")}"
   user-data = "#cloud-config\nusers:\n  - name: root\n        shell: /bin/bash\n        ssh-authorized-keys:\n      - ${file(~/root/.ssh/id_rsa.pub)}"
   }
 
