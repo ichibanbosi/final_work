@@ -15,10 +15,6 @@ variable "FOULDER_ID_Y" {type = string}
 variable "SSH_KEY_FOULDER" {type = string}
 variable "SUBNET_ID_Y" {type = string}
 
-locals {
-  PUB_KEY = "${var.SSH_KEY_FOULDER}/id_rsa.pub"
-  PRIV_KEY = "${var.SSH_KEY_FOULDER}/id_rsa"
-}
 
 provider "yandex" {
   token     = var.TOKEN_Y
@@ -53,7 +49,7 @@ resource "yandex_compute_instance" "build" {
   }
 
  metadata = {
-   user-data = "#cloud-config\nusers:\n  - name: root\n  shell: /bin/bash\n  ssh-authorized-keys:\n  - ${file(local.PUB_KEY)}"
+   user-data = "#cloud-config\nusers:\n  - name: root\n  shell: /bin/bash\n  ssh-authorized-keys:\n  - ${file("~/.ssh/id_rsa.pub")}"
   }
 
   scheduling_policy {
@@ -63,7 +59,7 @@ resource "yandex_compute_instance" "build" {
 connection {
     type     = "ssh"
     user     = "root"
-    private_key = "${file(local.PRIV_KEY)}"
+    private_key = "${file("~/.ssh/id_rsa")}"
     host = yandex_compute_instance.build.network_interface.0.nat_ip_address
   }
 
