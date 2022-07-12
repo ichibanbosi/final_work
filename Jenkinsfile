@@ -2,11 +2,11 @@ pipeline{
     agent any
 
     stages {
-//        stage ('git_clone') {
-//            steps {
-//               git 'https://github.com/ichibanbosi/final_work.git'
-//            }
-//        }
+        stage ('git_clone') {
+            steps {
+               git 'https://github.com/ichibanbosi/final_work.git'
+            }
+        }
 
         stage ('Create_VM') {
             agent any
@@ -17,6 +17,9 @@ pipeline{
                   export FOULDER_ID_Y=$FOULDER_ID_Y && echo "FOULDER_ID_Y=$FOULDER_ID_Y" >> varibles.txt
                   mkdir -p $SSH_KEY_FOULDER
                   if [ ! -f SSH_KEY_FOULDER/id_rsa ]; then ssh-keygen -N '' -f $SSH_KEY_FOULDER/id_rsa; fi
+                  cd ./final_work
+                  terraform init
+                  terraform apply -var-file ../varibles.txt -auto-approve
                   '''
             }
         }

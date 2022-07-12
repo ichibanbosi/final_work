@@ -54,3 +54,25 @@ resource "yandex_compute_instance" "build" {
     nat = true
   }
 
+ metadata = {
+    user-data = "${file("./meta.txt")}"
+  }
+
+  scheduling_policy {
+    preemptible = true
+  }
+
+connection {
+    type     = "ssh"
+    user     = "root"
+    private_key = "${file(local.PRIV_KEY)}"
+    host = yandex_compute_instance.build.network_interface.0.nat_ip_address
+  }
+
+
+  provisioner "remote-exec" {
+    inline = [
+      "apt-get update && apt-get install -y python3"
+    ]
+  }
+}
