@@ -12,7 +12,6 @@ terraform {
 variable "TOKEN_Y" {type = string}
 variable "CLOUD_ID_Y" {type = string}
 variable "FOULDER_ID_Y" {type = string}
-variable "SSH_KEY_FOULDER" {type = string}
 variable "SUBNET_ID_Y" {type = string}
 
 
