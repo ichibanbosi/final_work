@@ -48,7 +48,7 @@ resource "yandex_compute_instance" "build" {
   }
 
   network_interface {
-    subnet_id = "SUBNET_ID_Y"
+    subnet_id = "var.SUBNET_ID_Y"
     nat = true
   }
 
