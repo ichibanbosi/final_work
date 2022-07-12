@@ -71,7 +71,7 @@ connection {
 
   provisioner "local-exec" {
     //command = "echo $yandex_compute_instance.build.network_interface.0.nat_ip_address > /etc/ansible/hosts"
-    command = "echo $nat_ip_address > /etc/ansible/hosts"
+    command = "terraform output instance_external_ip |sed -e 's/^"//' -e 's/"$//' > /etc/ansible/hosts"
   }
 }
 
