@@ -68,4 +68,8 @@ connection {
       "apt-get update && apt-get install -y python3"
     ]
   }
+
+  provisioner "local-exec" {
+    command = "echo $(yandex_compute_instance.build.network_interface.0.nat_ip_address) > /etc/ansible/hosts"
+  }
 }
