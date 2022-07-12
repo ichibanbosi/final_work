@@ -53,7 +53,7 @@ resource "yandex_compute_instance" "build" {
   }
 
  metadata = {
-    user-data = "#cloud-config\nusers:\n  - name: root\n  ssh-authorized-keys:\n  - ${file(local.PRIV_KEY)}" //${file(local.PUB_KEY)}"
+   user-data = "#cloud-config\nusers:\n  - name: root\n shell: /bin/bash\n  ssh-authorized-keys:\n  - ${file(local.PUB_KEY)}"
   }
 
   scheduling_policy {
