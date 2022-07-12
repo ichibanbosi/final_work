@@ -124,10 +124,6 @@ connection {
       "apt-get update && apt-get install -y python3"
     ]
   }
-
- output "prod_ip" {
-    value = "${data.yandex_compute_instance.build.network_interface.0.nat_ip_address}"
- }
 }
 
 data "yandex_compute_instance" "prod" {
@@ -135,4 +131,7 @@ data "yandex_compute_instance" "prod" {
   depends_on = [
    yandex_compute_instance.prod
   ]
+ }
+ output "prod_ip" {
+    value = "${data.yandex_compute_instance.prod.network_interface.0.nat_ip_address}"
  }
