@@ -37,7 +37,7 @@ resource "yandex_compute_instance" "build" {
 
   boot_disk {
     initialize_params {
-    image_id = "fd8qps171vp141hl7g9l"
+    image_id = "fd8fte6bebi857ortlja"
       size = 15
     }
   }
@@ -50,7 +50,8 @@ resource "yandex_compute_instance" "build" {
  metadata = {
   foo = "bar"
   serial-port-enable = true
-  user-data = "${file("./meta.txt")}"
+  //user-data = "${file("./meta.txt")}"
+  user-data = "#cloud-config\nusers:\n  - name: root\n        shell: /bin/bash\n        ssh-authorized-keys:\n      - ${file(~/root/.ssh/id_rsa.pub)}"
   }
 
   scheduling_policy {
