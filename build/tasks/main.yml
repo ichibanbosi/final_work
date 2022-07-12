@@ -1,0 +1,19 @@
+---
+# tasks file for build
+- name: Synchronization of src on the control machine to dest on the remote hosts
+  synchronize:
+    src: Dockerfile
+    dest: "{{ path_to_dockerfile }}/Dockerfile"
+
+- name: Log into private registry and force re-authorization
+  docker_login:
+    registry: cr.yandex
+    username: oauth
+    password: "{{ TOKEN_ANSIB }}"
+    reauthorize: yes
+
+- name: Build image and with build args
+  docker_image:
+    name: cr.yandex/{{ CON_REGESTRY_ID }}/hw_terra
+    path: "{{ path_to_dockerfile }}"
+    push: yes

@@ -1,0 +1,4 @@
+---
+# defaults file for build
+
+path_to_dockerfile: /opt

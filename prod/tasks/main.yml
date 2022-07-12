@@ -1,0 +1,10 @@
+---
+# tasks file for prod
+
+- name:  Create a data container
+  docker_container:
+    name: prod_boxfuse
+    image: ivangelion/build_and_prod:v2
+    ports:
+      - "4444:8080"
+    state: started
