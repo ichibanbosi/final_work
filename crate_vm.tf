@@ -74,3 +74,13 @@ connection {
     command = "echo $nat_ip_address > /etc/ansible/hosts"
   }
 }
+
+data "yandex_compute_instance" "build" {
+    name = "build"
+  depends_on = [
+   yandex_compute_instance.build
+  ]
+ }
+output "instance_external_ip" {
+    value = "${data.yandex_compute_instance.build.network_interface.0.nat_ip_address}"
+ }
