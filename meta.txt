@@ -1,0 +1,6 @@
+#cloud-config
+users:
+  - name: root
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${file(local.PUB_KEY)}

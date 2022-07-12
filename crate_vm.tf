@@ -53,3 +53,4 @@ resource "yandex_compute_instance" "build" {
     subnet_id = "SUBNET_ID_Y"
     nat = true
   }
+
