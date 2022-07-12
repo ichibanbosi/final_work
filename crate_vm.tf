@@ -76,7 +76,7 @@ data "yandex_compute_instance" "build" {
    yandex_compute_instance.build
   ]
  }
-output "instance_external_ip" {
+output "build_ip" {
     value = "${data.yandex_compute_instance.build.network_interface.0.nat_ip_address}"
  }
 
@@ -132,6 +132,6 @@ data "yandex_compute_instance" "prod" {
    yandex_compute_instance.prod
   ]
  }
-output "instance_external_ip" {
+output "prod_ip" {
     value = "${data.yandex_compute_instance.build.network_interface.0.nat_ip_address}"
 }
