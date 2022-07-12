@@ -68,11 +68,6 @@ connection {
       "apt-get update && apt-get install -y python3"
     ]
   }
-
-  provisioner "local-exec" {
-    //command = "echo $yandex_compute_instance.build.network_interface.0.nat_ip_address > /etc/ansible/hosts"
-    command = "terraform output instance_external_ip |sed -e 's/^"//' -e 's/"$//' > /etc/ansible/hosts"
-  }
 }
 
 data "yandex_compute_instance" "build" {
@@ -84,3 +79,59 @@ data "yandex_compute_instance" "build" {
 output "instance_external_ip" {
     value = "${data.yandex_compute_instance.build.network_interface.0.nat_ip_address}"
  }
+
+ resource "yandex_compute_instance" "prod" {
+  name        = "prod"
+  hostname    = "prod"
+  platform_id = "standard-v1"
+  zone        = "ru-central1-a"
+
+  resources {
+    cores  = 2
+    memory = 2
+  }
+
+  boot_disk {
+    initialize_params {
+    image_id = "fd8fte6bebi857ortlja"
+      size = 15
+    }
+  }
+
+  network_interface {
+    subnet_id = var.SUBNET_ID_Y
+    nat = true
+  }
+
+ metadata = {
+   user-data = "#cloud-config\nusers:\n  - name: root\n    groups: sudo\n    shell: /bin/bash\n    sudo: ['ALL=(ALL) NOPASSWD:ALL']\n    ssh-authorized-keys:\n      - ${file("~/.ssh/id_rsa.pub")}"
+   }
+
+  scheduling_policy {
+    preemptible = true
+  }
+
+connection {
+    type     = "ssh"
+    user     = "root"
+    private_key = "${file("~/.ssh/id_rsa")}"
+    host = yandex_compute_instance.build.network_interface.0.nat_ip_address
+  }
+
+
+  provisioner "remote-exec" {
+    inline = [
+      "apt-get update && apt-get install -y python3"
+    ]
+  }
+}
+
+data "yandex_compute_instance" "prod" {
+    name = "prod"
+  depends_on = [
+   yandex_compute_instance.prod
+  ]
+ }
+output "instance_external_ip" {
+    value = "${data.yandex_compute_instance.build.network_interface.0.nat_ip_address}"
+}
