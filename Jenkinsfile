@@ -33,7 +33,6 @@ pipeline{
                   echo $BUILD_IP >> /etc/ansible/hosts
                   echo "[prod]" >> /etc/ansible/hosts
                   echo $PROD_IP >> /etc/ansible/hosts
-                  ansible all -m ping -v
                   TOKEN_A=$(cat varibles.txt |grep TOKEN |cut -d'=' -f 2|sed -e 's/^"//' -e 's/"$//')
                   echo $TOKEN_A
                   ansible-playbook start.yaml --extra-vars "TOKEN_ANSIB=$TOKEN_A" --extra-vars "CON_REGESTRY_ID=$CONTAINER_REGESTRY_ID"
