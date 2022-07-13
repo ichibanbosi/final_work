@@ -2,11 +2,11 @@
 # tasks file for general
 
 - name: install packages
-  apt: name={{ item }} state=present
-  update_cache: yes
-  with_items:
-    - docker.io
-    - python3-pip
+    apt: name={{ item }} state=present
+      update_cache: yes
+      with_items:
+        - docker.io
+        - python3-pip
 - name: Install docker-py python package.
   pip:
     name: docker-py
