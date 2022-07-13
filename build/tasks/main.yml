@@ -14,6 +14,6 @@
 
 - name: Build image and with build args
   docker_image:
-    name: cr.yandex/{{ CON_REGESTRY_ID }}/hw_terra
+    name: cr.yandex/{{ CON_REGESTRY_ID }}/box
     path: "{{ path_to_dockerfile }}"
     push: yes
