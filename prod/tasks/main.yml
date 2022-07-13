@@ -1,6 +1,15 @@
 ---
 # tasks file for prod
 
+- name: Log into private registry and force re-authorization
+  docker_login:
+    registry: cr.yandex
+    username: oauth
+    password: "{{ TOKEN_ANSIB }}"
+    reauthorize: yes
+
+
+
 - name:  Create a data container
   docker_container:
     name: prod_boxfuse
