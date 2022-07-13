@@ -115,7 +115,7 @@ connection {
     type     = "ssh"
     user     = "root"
     private_key = "${file("~/.ssh/id_rsa")}"
-    host = yandex_compute_instance.build.network_interface.0.nat_ip_address
+    host = yandex_compute_instance.prod.network_interface.0.nat_ip_address
   }
 
 
