@@ -5,7 +5,6 @@ pipeline{
         stage ('git_clone') {
             steps {
                git branch: 'main', url: 'https://github.com/ichibanbosi/final_work.git'
-               sh 'mkdir ~/.ssh'
                sh 'cp config ~/.ssh/config'
             }
         }
