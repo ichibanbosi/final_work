@@ -2,10 +2,14 @@ pipeline{
     agent any
 
     stages {
-        stage ('git_clone') {
+        stage ('git_clone_and_setings_ssh') {
             steps {
                git branch: 'main', url: 'https://github.com/ichibanbosi/final_work.git'
-               sh 'cp config ~/.ssh/config'
+               sh '''
+               if [ ! -d ~/.ssh ]; then mkdir ~/.ssh ; fi
+               if [ ! -f ~/.ssh/id_rsa ]; then ssh-keygen -N '' -f ~/.ssh/id_rsa; fi
+               cp config ~/.ssh/config
+               '''
             }
         }
 
