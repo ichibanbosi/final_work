@@ -10,11 +10,11 @@
     - build
 
 
-#- name: prod server comfiguration
-#  hosts: prod
-#  become: yes
+- name: prod server comfiguration
+  hosts: prod
+  become: yes
 
 
- # roles:
- #   - general
- #   - prod
+  roles:
+    - general
+    - prod
