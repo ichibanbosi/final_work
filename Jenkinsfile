@@ -13,10 +13,10 @@ pipeline{
             steps {
                 sh '''
                   BEGIN=$(pwd)
-                  export TOKEN_Y=$TOKEN_Y && echo "TOKEN_Y=$TOKEN_Y" > varibles.txt
-                  export CLOUD_ID_Y=$CLOUD_ID_Y && echo "CLOUD_ID_Y=$CLOUD_ID_Y" >> varibles.txt
-                  export FOULDER_ID_Y=$FOULDER_ID_Y && echo "FOULDER_ID_Y=$FOULDER_ID_Y" >> varibles.txt
-                  export SUBNET_ID_Y=$SUBNET_ID_Y && echo "SUBNET_ID_Y=$SUBNET_ID_Y" >> varibles.txt
+                  echo "TOKEN_Y=$TOKEN_Y" > varibles.txt
+                  echo "CLOUD_ID_Y=$CLOUD_ID_Y" >> varibles.txt
+                  echo "FOULDER_ID_Y=$FOULDER_ID_Y" >> varibles.txt
+                  echo "SUBNET_ID_Y=$SUBNET_ID_Y" >> varibles.txt
                   terraform init
                   terraform apply -var-file $BEGIN/varibles.txt -auto-approve
                   echo build:$(terraform output build_ip |sed -e 's/^"//' -e 's/"$//') > var_for_ansible.txt
