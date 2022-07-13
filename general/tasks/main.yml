@@ -2,8 +2,8 @@
 # tasks file for general
 
 - name: install packages
-  update_cache: yes
   apt: name={{ item }} state=present
+  update_cache: yes
   with_items:
     - docker.io
     - python3-pip
